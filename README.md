@@ -3,69 +3,50 @@
 Vous trouverez ici un ensemble d'exercices permettant de pratiquer python mais également découvrir quelques pans annexes de l'informatique en général.
 Ces exercices sont issus d'un livre réalisé par Pascal Lafourcade et Malika More.
 
-## Exercice : A ski
-Décryptez le message stocké dans le fichier `files/a_ski.txt`.
+## Exercice : Arbre quaternaire
+Un quadtree ou arbre quaternaire (arbre Q) est une structure de données de type arbre dans laquelle chaque nœud a quatre fils. Les quadtrees sont le plus souvent utilisés pour partitionner un espace bidimensionnel en le subdivisant récursivement en quatre nœuds. 
+![img.png](files/quadtree.png)
 
-Après avoir compris la technique de codage utilisé, saurez-vous implémenter un programme en python permettant de le déchiffrer?
+Il existe plusieurs types de quadtree. Dans notre cas il s'agit d'un quadtree "region".
+Le quadtree «région» représente une partition de l'espace en deux dimensions en décomposant la région en quatre quadrants égaux, puis chaque quadrant en quatre sous-quadrants, et ainsi de suite, avec chaque «nœud terminal» comprenant des données correspondant à une sous-région spécifique. Chaque nœud de l'arbre a exactement : soit quatre enfants, soit aucun (cas d'un nœud terminal).
+Chaque `Noeud` comportant quatre éléments. Il s'agit d'une technique connue pour l'encodage d'images.  Pour simplifier, les images sont carrées, de couleur noir et blanc 
+et de côté 2^n.
 
-> Ici vous allez découvrir la manipulation de fichiers, la conversion de str en int et quelques méthodes natives du langage python. 
-
-## Exercice cryptarithme
-Chaque lettre de l'opération représente un chiffre différent entre 0 et 9. Ecrivez un programme permettant de déterminer la valeur de chaque lettre pour que l'opération soit correcte, sachant que le premier chiffre de chaque nombre ne peut être un `0`.
-> SEND + MORE = MONEY
-
-> HUIT + HUIT = SEIZE
-
-> UN + UN + ONZE = TREIZE
-
-> CINQ + CINQ + VINGT = TRENTE
-
-Saurez-vous implémenter un script python permettant de trouver les chiffres associés aux lettres?
-
-Vous avez le fichier `files/cryptarithme.txt` à votre disposition si vous le souhaitez. 
-
-> Cet exercice implique l'utilisation de boucles imbriquées.
-
-## Exercice: Compter comme un shadok
-> Pour compte les matins, les Shadoks ont un système de numérotation basé uniquement sur les syllabes suivantes : 
->GA, BU, ZO et MEU.
->Voici par exemple un nombre shadok : BU MEU ZO MEU GA GA
-
-Saurez-vous programmer un convertisseur de nombre shadoks  en nombres décimaux pour découvrir quel est le nombre caché derrière le fichier `files/shadoks.txt` et ainsi découvrir la date de diffusion du premier épisode de cette série culte?
-
-> Cet exercice implique la compréhension des bases en mathématiques.
-
-## Exercice : Stéganographie
-Le principe de stéganographie est d'utiliser une technique pour passer un message secret d'une manière dissimulée tout en restant lisible pour celui qui sait comment trouver. 
-Au sein du fichier `stegano.png` se cache un texte secret. Chaque pixel a été très légèremet modifié.
-Il faut extraire le bit de poids faible de chaque couleur de chaque pixel.
-Puis d'en refaire des octets de 8 bits.
-
-Exemple: 
+Un noeud à quatre fils est représenté : 
 ```python
-pixel = image[0][0]
-r = red(pixel) % 2
-g = green(pixel) % 2
-b = blue(pixel) % 2
-a = alpha(pixel) % 2 
+from __future__ import annotations
 
-pixel1 = image[1][0]
-r1 = red(pixel1) % 2
-g1 = green(pixel1) % 2
-b1 = blue(pixel1) % 2
-a1 = alpha(pixel1) % 2 
+class QuadTree:
+    def __init(hg: bool|QuadTree, hd: bool|QuadTree, bg: bool|QuadTree, bd: bool|QuadTree):
+        pass
+    @property
+    def depth(self) -> int:
+        """ Recursion depth of the quadtree"""
+        return 1
+    @staticmethod
+    def fromFile(filename):
+        # Your code here
+        pass
+    @staticmethod
+    def fromList(data):
+        pass 
+    
+    def paint(self):
+        """ Textual representation of the QuadTree"""
 
-first_letter = chr(bin2dec(''.join((r,g,b,a,r1,g1,b1,a1))))
+class TkQuadTree(QuadTree):
+    def paint(self):
+        """ TK representation of a Quadtree"""
 ```
-Vous aurez très probablement besoin d'utiliser PIL.
+
+Assurez-vous que la lecture du fichier se passe sans encombre, en lançant les tests unitaires :
 ```shell
-pip install pillow
+python -m pytest tests/test_quadtree.py -x
 ```
 
-## Exercice : Canaux cachés
-La fonction fournie dans le fichier `files/canaux_caches.py` permets de vérifier si
-un code saisi est contenu dans la variable essai
+A partir du fichier `files/quadtree.txt`, générez le QuadTree associé. 
+Puis, réalisez une interface graphique en utilisant la classe `TkQuadTree`, permettant de la représenter. 
 
-Saurez-vous écrire un programme qui permets à votre ordinateur à coup sûr en moins de 3 minutes de découvrir le code PIN saisi par l'utilisateur ? 
-L'ordinateur ne doit pas utiliser la variable pin mais uniquement la méthode checkpin.
-La fonction checkpin fournie ne dois pas être modifiée.
+Bonus : 
+Remplacez les valeurs binaires des feuilles par des valeurs numériques, combinez celà à un [tileset](https://docs.godotengine.org/en/stable/_images/using_tilesets_kenney_abstract_platformer_tile_sheet.webp). 
+Et voilà, vous avez généré votre tilemap par le biais d'un quadtree.
