@@ -50,3 +50,23 @@ Puis, réalisez une interface graphique en utilisant la classe `TkQuadTree`, per
 Bonus : 
 Remplacez les valeurs binaires des feuilles par des valeurs numériques, combinez celà à un [tileset](https://docs.godotengine.org/en/stable/_images/using_tilesets_kenney_abstract_platformer_tile_sheet.webp). 
 Et voilà, vous avez généré votre tilemap par le biais d'un quadtree.
+
+## Livraison :
+Livrez votre projet via un dépôt git et communiquez l'url de votre dépôt au formateur. 
+Vous devrez livrer ce projet pour le dernier jour du module au sein de votre école. 
+
+Il s'agit donc du 14 (13h) ou du 15 Novembre 2023 (18h) en fonction de votre groupe. La date et heure du commit faisant foi.
+Vous pouvez adapter les tests ou les noms des méthodes, attributs en fonction de votre implémentation
+
+## Barème :
+
+- /1    Présence d'un fichier requirements.txt
+- /1    Pertinence du fichier Readme.md
+- /2    Gestion de GIT
+- /2    Doctrings sur tous les modules, classes et méthodes
+- /2	Nommage propre des méthodes/classes/variables
+- /2	Le Quadtree est correctement généré
+- /2    Absence de code superflu
+- /2	Pertinence du code implémenté
+- /2	Validation des tests et implémentation des tests unitaires additionnels pour couvrir toutes les fonctionalités
+- /4	Interface graphique finie (TK, Pygame ou autre) et implémentation propre
