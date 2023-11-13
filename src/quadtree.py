@@ -1,5 +1,6 @@
 from __future__ import annotations
 import json
+import tkinter as tk
 
 class QuadTree:
     NB_NODES : int = 4
@@ -12,23 +13,27 @@ class QuadTree:
         
 
     @staticmethod
-    def fromFile(filename: str) -> QuadTree:
-        #""" Ouvrir un fichier donné contenant une représentation textuelle d'une liste """
-        # Lire le fichier et faire une liste
+    def fromFile(filename: str) -> list:
+        # str) -> QuadTree: wtf pourquoi 2 fonction retournerai un quadtree ? go retourner une list
         file = open(filename)
         easyQaud = file.read()
         liste = json.loads(easyQaud)
         tableau = list(liste)
-        #print(tableau)
         
         return tableau
 
 
     @staticmethod
     def fromList(data: list) -> QuadTree:
-        #""" Génère un Quadtree à partir d'une représentation sous forme de liste """
-        # Reprendre la boucle depth modifié pour créer un 
-        pass
+        if len(data) == 0:
+            return QuadTree(None, None, None, None)
+        else:
+            self.hg = QuadTree.fromList(data[0])
+            self.hd = QuadTree.fromList(data[1])
+            self.bg = QuadTree.fromList(data[2])
+            self.bd = QuadTree.fromList(data[3])
+            return QuadTree(hg, hd, bg, bd)
+
 
     def depth(self, data) -> int:
         #""" Profondeur de récursion du quadtree """
@@ -61,3 +66,18 @@ class TkQuadTree(QuadTree):
     def paint(self):
         """ Représentation TK d'un Quadtree """
         pass 
+
+def draw_square(canvas, color):
+    # Remettre ma boucle while avec sa logique ici ?
+    canvas.create_rectangle(50, 50, 150, 150, fill=color)
+
+root = tk.Tk()
+root.title("Carré Noir")
+
+canvas = tk.Canvas(root, width=600, height=600)
+canvas.pack()
+
+# Passer le Quadtreee
+draw_square(canvas, "black")
+
+root.mainloop()
