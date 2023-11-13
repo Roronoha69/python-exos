@@ -3,9 +3,15 @@ import json
 import tkinter as tk
 
 class QuadTree:
+    """Représente un arbre quadtree."""
+    
     NB_NODES : int = 4
 
     def __init__(self, hg: bool | QuadTree, hd: bool | QuadTree, bd: bool | QuadTree,bg: bool | QuadTree):
+        """
+        Initialise un nœud quadtree avec ses quatre sous-arbres.
+
+        """
         self.hg = hg
         self.hd = hd
         self.bd = bd
@@ -14,10 +20,19 @@ class QuadTree:
 
     @staticmethod
     def fromFile(filename: str) -> list:
-        # str) -> QuadTree: wtf pourquoi 2 fonction retournerai un quadtree ? go retourner une list
+        """
+        Charge un quadtree depuis un fichier txt.
+        Le mettre en json.
+
+        Args:
+        - filename (str): Chemin vers le fichier JSON.
+
+        Returns:
+        - list: Liste représentant le quadtree.
+        """
         file = open(filename)
-        easyQaud = file.read()
-        liste = json.loads(easyQaud)
+        easyQuad = file.read()
+        liste = json.loads(easyQuad)
         tableau = list(liste)
         
         return tableau
@@ -25,6 +40,15 @@ class QuadTree:
 
     @staticmethod
     def fromList(data: list) -> QuadTree:
+        """
+        Construit un quadtree à partir d'une liste.
+
+        Args:
+        - data (list): Liste représentant le quadtree.
+
+        Returns:
+        - QuadTree: Instance du quadtree.
+        """
         if len(data) == 0:
             return QuadTree(None, None, None, None)
         else:
@@ -36,48 +60,52 @@ class QuadTree:
 
 
     def depth(self, data) -> int:
-        #""" Profondeur de récursion du quadtree """
+        """
+        Calcule la profondeur du quadtree.
+
+        Args:
+        - data: Données du quadtree.
+
+        Returns:
+        - int: Profondeur du quadtree.
+        """
         count = 0
         stack_items = [data]
         stack_depths = [0]
         
         while stack_items:
-            current_item = stack_items.pop() # Retire le dernier element pour boulcer sur toute la liste
+            current_item = stack_items.pop() # Retire le dernier élément pour boucler sur toute la liste
             current_depth = stack_depths.pop()
 
             if isinstance(current_item, list):
                 for nestedArray in current_item:
-                    stack_items.append(nestedArray) # le dernier element devient nested array donc on vas reboucler a l'interieure jusqu'a avoir trouver tou les nested elemeent 
+                    stack_items.append(nestedArray) # Le dernier élément devient nested array, donc on va reboucler à l'intérieur jusqu'à avoir trouvé tous les éléments imbriqués
                     stack_depths.append(current_depth + 1)
-                    print(nestedArray)
 
             count = current_depth if count < current_depth else count
 
-        print("final", count)
         return count
-
-p = QuadTree
-tableau = p.fromFile("../files/quadtree.txt")
-p.__init__(p, tableau[0], tableau[1], tableau[2], tableau[3])
-p.depth(p, tableau)
 
 
 class TkQuadTree(QuadTree):
-    def paint(self):
-        """ Représentation TK d'un Quadtree """
-        pass 
+    pass
+    
+#     def paint(self):
+        
+#         pass 
 
-def draw_square(canvas, color):
-    # Remettre ma boucle while avec sa logique ici ?
-    canvas.create_rectangle(50, 50, 150, 150, fill=color)
 
-root = tk.Tk()
-root.title("Carré Noir")
+# def draw_square(canvas, color):
+#     # Remettre ma boucle while avec sa logique ici
+#     canvas.create_rectangle(50, 50, 150, 150, fill=color)
 
-canvas = tk.Canvas(root, width=600, height=600)
-canvas.pack()
+# root = tk.Tk()
+# root.title("Carré Noir")
 
-# Passer le Quadtreee
-draw_square(canvas, "black")
+# canvas = tk.Canvas(root, width=600, height=600)
+# canvas.pack()
 
-root.mainloop()
+# # Passer le Quadtreee
+# draw_square(canvas, "black")
+
+# root.mainloop()
