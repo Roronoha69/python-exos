@@ -5,7 +5,9 @@ Ce programme Python met en œuvre un quadtree, une structure de données arbores
 ## Installation
 
 1- Assurez-vous d'avoir Python installé sur votre machine.
+
 2- Téléchargez le code source depuis [lien GitHub].
+
 3- Exécutez le programme en utilisant la commande suivante dans votre terminal :
 python quadtree.py
 
