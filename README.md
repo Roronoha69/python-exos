@@ -8,8 +8,11 @@ Ce programme Python met en œuvre un quadtree, une structure de données arbores
 
 2- Cloner ce repo
 
-3- Exécutez le programme en utilisant la commande suivante dans votre terminal :
-python quadtree.py
+3- Exécutez les commandes suivantes :
+
+=> cd src
+
+=> python quadtree.py
 
 ## Fonctionnalités
 
