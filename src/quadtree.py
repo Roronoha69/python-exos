@@ -2,6 +2,8 @@ from __future__ import annotations
 import json
 import tkinter as tk
 
+
+
 class QuadTree:
     """Représente un arbre quadtree."""
     
@@ -52,14 +54,14 @@ class QuadTree:
         if len(data) == 0:
             return QuadTree(None, None, None, None)
         else:
-            self.hg = QuadTree.fromList(data[0])
-            self.hd = QuadTree.fromList(data[1])
-            self.bg = QuadTree.fromList(data[2])
-            self.bd = QuadTree.fromList(data[3])
+            hg = QuadTree.fromList(data[0])
+            hd = QuadTree.fromList(data[1])
+            bg = QuadTree.fromList(data[2])
+            bd = QuadTree.fromList(data[3])
             return QuadTree(hg, hd, bg, bd)
 
 
-    def depth(self, data) -> int:
+    def depth(data) -> int:
         """
         Calcule la profondeur du quadtree.
 
@@ -74,38 +76,68 @@ class QuadTree:
         stack_depths = [0]
         
         while stack_items:
-            current_item = stack_items.pop() # Retire le dernier élément pour boucler sur toute la liste
+            # Selectionne le derniers élément de la list pour voir s'il contients des arrays imbriqués
+            # L'element est en meme temps retirer de la liste pour qu'on puisse reboucler jusqu'a la fin de la liste
+            current_item = stack_items.pop() 
             current_depth = stack_depths.pop()
 
             if isinstance(current_item, list):
                 for nestedArray in current_item:
-                    stack_items.append(nestedArray) # Le dernier élément devient nested array, donc on va reboucler à l'intérieur jusqu'à avoir trouvé tous les éléments imbriqués
+                    # Le dernier élément devient nested array, donc on va reboucler à l'intérieur jusqu'à avoir trouvé tous les éléments imbriqués
+                    stack_items.append(nestedArray) 
                     stack_depths.append(current_depth + 1)
 
             count = current_depth if count < current_depth else count
 
         return count
+    
 
 
-class TkQuadTree(QuadTree):
+filename = "../files/quadtree.txt"
+q = QuadTree.fromFile(filename)
+depth = QuadTree.depth(q)
+print(f"Profondeur du quadtree : {depth}")
+
+
+
+
+
+class TkQuadTree():
     pass
     
-#     def paint(self):
-        
-#         pass 
+def draw_four_squares(canvas):
+    q = QuadTree.fromFile("../files/quadtree_easy.txt")
+    size = 150
+    
+    # hg
+    canvas.create_rectangle(0, 0, size, size, fill="white" if q[0] == 1 else "black")
+    
+    # hd
+    canvas.create_rectangle(size, 0, size * 2, size, fill="white" if q[1] == 1 else "black")
+
+    # bd
+    canvas.create_rectangle(size, size, size * 2, size * 2, fill="white" if q[2] == 1 else "black")
+    
+    # bg
+    canvas.create_rectangle(0, size, size, size * 2, fill="white" if q[3] == 1 else "black")
 
 
-# def draw_square(canvas, color):
-#     # Remettre ma boucle while avec sa logique ici
-#     canvas.create_rectangle(50, 50, 150, 150, fill=color)
+def initCanva():
+    
+    root = tk.Tk()
+    root.title("Quadtree")
 
-# root = tk.Tk()
-# root.title("Carré Noir")
+    canvas = tk.Canvas(root, width=300, height=300)
+    canvas.pack()
 
-# canvas = tk.Canvas(root, width=600, height=600)
-# canvas.pack()
+    # Appelle la fonction pour dessiner les quatre carrés sur le canvas
+    draw_four_squares(canvas)
 
-# # Passer le Quadtreee
-# draw_square(canvas, "black")
+    # Affiche un bouton Quit pour fermer la fenêtre
+    tk.Button(root, text="Quit", command=root.destroy).pack()
 
-# root.mainloop()
+    root.mainloop()
+
+initCanva()
+
+
